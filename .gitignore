@@ -1,0 +1,9 @@
+# cf. https://redcoder.tistory.com/264
+# ignore all
+*
+# Unignore all with extensions
+!*.*
+# Unignore all dirs
+!*/
+
+log
