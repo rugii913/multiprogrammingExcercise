@@ -33,6 +33,19 @@
   - 잔액 부족이 뜨면 그 이후로 프로그램이 중지됨
   - 로직 자체의 문제는 아닌 것으로 추측 중
 
+8. synchroMutexEx5.c
+- 로직의 문제가 아니라고 착각하고 있었는데 로직 자체의 문제가 맞았음
+  - withdraw 함수에서 while 안 if 조건문에서 Java만 생각하고 strcmp의 반환 타입을 확인할 생각도 안 했다.
+  - strcmp의 반환 타입은 int이다. - C에서는 int를 true, false를 나타내는 데에 많이 사용한다.
+    - 같으면 1, 다르면 0 ==> 소유 thread가 다른 경우 unlock
+- 그 밖에 굳이 함수도 다 다르게 사용하진 않도록 함수 숫자 줄임
+- 종종 실행 중에 에러 발생하고 있음 - pthread error msg.jpg, pthread error searching.jpg 참고
+
+9. synchroMutexEx6.c
+- 혹시 문제가 되는 부분이 같은 함수를 쓰는 thread라면 mutex_owner도 같은 문자열이 되는 부분인가 ㅏㅎ여
+  - 문자열로 구분하지 않고, pthread_self()로 반환되는 id로 구분하도록 함
+  - 그럼에도 불구하고 여전히 Ex5와 동일한 에러 발생하고 있음
+
 *bash 명령어
 - gcc [c 파일 이름] -o [실행 파일] -lpthread: pthread 이용한 컴파일
 - ./[실행 파일] > [생성할 파일 이름].txt: 화면에 출력하지 않고 파일에 출력 결과 저장
